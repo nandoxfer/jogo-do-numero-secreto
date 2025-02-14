@@ -25,22 +25,27 @@ exibirTextoNaTela('p', 'ESCOLHA UM NÚMERO ENTRE 1 E 10: ');
 exibirMensagemInicial();
 
 function verificarChute() {
-    let chute = document.querySelector('input').value;
+    let chute = parseInt(document.querySelector('input').value);
+    if (isNaN(chute) || chute < 1 || chute > 10) {
+        exibirTextoNaTela('p', 'POR FAVOR, DIGITE UM NÚMERO ENTRE 1 E 10!');
+        limparCampo();
+        return;
+    }
     let palavraTentativa = tentativas > 1 ? 'TENTATIVAS!' : 'TENTATIVA';
     let mensagemTentativas = (`CERTÔ EM ${tentativas} ${palavraTentativa}, PARABÉNS!`);
-    if (chute == numeroSecreto){
-    exibirTextoNaTela('p', mensagemTentativas);
-    document.getElementById('reiniciar').removeAttribute('disabled');
+    if (chute === numeroSecreto) {
+        exibirTextoNaTela('p', mensagemTentativas);
+        document.getElementById('reiniciar').removeAttribute('disabled');
     } else {
         if (chute > numeroSecreto) {
             exibirTextoNaTela('p', `O NÚMERO SECRETO É MENOR QUE ${chute}.`);
         } else {
             exibirTextoNaTela('p', `O NÚMERO SECRETO É MAIOR QUE ${chute}.`);
         }
-    tentativas ++
-    limparCampo();
+        tentativas++;
+        limparCampo();
     }
- }
+}
 
 function gerarNumeroAleatorio() {
     let quantidadeDeElementosNaLista = listaDeNumerosSorteados.length;
